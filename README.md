@@ -277,3 +277,24 @@ En MongoDB sí funcionó Snappy porque comprime documentos BSON completos.
 
 ---
 
+## Funcion que calcula el consumo energetico: 
+```
+def trapezoid_energy(t, p):
+    """
+    Energía: E = ∫ P dt  (J).
+    """
+    t = np.asarray(t, dtype=float)
+    p = np.asarray(p, dtype=float)
+    mask = np.isfinite(t) & np.isfinite(p)
+    t, p = t[mask], p[mask]
+
+    if t.size < 2:
+        return np.nan
+
+    idx = np.argsort(t)
+    t, p = t[idx], p[idx]
+
+    if hasattr(np, "trapezoid"):
+        return float(np.trapezoid(p, t))
+    return float(np.trapz(p, t))
+```
